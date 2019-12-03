@@ -7,7 +7,7 @@ class UserController < ApplicationController
 		render json: @users, status: :ok
 	end
 
-	# GET /users/{id}
+	# GET /users/:id
 	def show
     @user = User.find(params[:id])
     render json: @user, status: :ok
@@ -27,7 +27,7 @@ class UserController < ApplicationController
     	end
  	end
 
-  # PUT /users/{id}
+  # PUT /users/:id
   def update
     unless @user.update(user_params)
       render json: { errors: @user.errors.full_messages },
@@ -35,7 +35,7 @@ class UserController < ApplicationController
     end
   end
 
-  # DELETE /users/{id}
+  # DELETE /users/:id
   def destroy
     @user.destroy
   end

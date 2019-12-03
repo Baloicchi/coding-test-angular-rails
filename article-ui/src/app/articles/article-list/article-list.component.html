@@ -1,1 +1,7 @@
-<p>article-list works!</p>
+<div *ngIf=articles>
+    <div *ngFor="let article of articles | keyvalue">
+        {{ article.title }}
+    </div>
+</div>
+
+<div ng-show="!articles.length">No items</div>

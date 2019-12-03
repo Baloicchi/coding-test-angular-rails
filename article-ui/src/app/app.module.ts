@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
@@ -13,6 +13,8 @@ import { UsersComponent } from '@app/users/users.component';
 import { UserLoginComponent } from '@app/users/user-login/user-login.component';
 import { UserRegisterComponent } from '@app/users/user-register/user-register.component';
 
+import { JwtInterceptorHelper } from '@app/_helpers/jwt-interceptor.helper';
+import { ErrorInterceptorHelper } from '@app/_helpers/error-interceptor.helper';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { UserRegisterComponent } from '@app/users/user-register/user-register.co
     ArticleListComponent,
     UsersComponent,
     UserLoginComponent,
-    UserRegisterComponent
+    UserRegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,10 @@ import { UserRegisterComponent } from '@app/users/user-register/user-register.co
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorHelper, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorHelper, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

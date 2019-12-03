@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
-import { UserService } from '@app/users/shared/user.service';
+import { AuthenticationService } from '@app/_services/authentication.service';
 
 @Component({
   selector: 'app-user-login',
@@ -11,9 +12,16 @@ import { UserService } from '@app/users/shared/user.service';
 })
 export class UserLoginComponent implements OnInit {
 
+  currentUser;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
+
   constructor(
-    private userService: UserService,
-    private formBuilder: FormBuilder
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private router: Router,
   ) {}
 
   userLoginForm = this.formBuilder.group({
@@ -21,13 +29,12 @@ export class UserLoginComponent implements OnInit {
     password: ['', Validators.required],
   });
   
-
   ngOnInit() {
+    
   }
 
   onSubmit() {
-  // TODO: Use EventEmitter with form value
-  console.warn(this.userLoginForm.value);
-}
+    this.authenticationService.login(this.userLoginForm.value.email, this.userLoginForm.value.password);
+  }
 
 }
