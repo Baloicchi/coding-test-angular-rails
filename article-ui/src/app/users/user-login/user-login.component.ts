@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/_services/authentication.service';
 
@@ -12,12 +11,8 @@ import { AuthenticationService } from '@app/_services/authentication.service';
 })
 export class UserLoginComponent implements OnInit {
 
-  currentUser;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error = '';
-
+  navbarHide: boolean;
+	
   constructor(
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -30,7 +25,7 @@ export class UserLoginComponent implements OnInit {
   });
   
   ngOnInit() {
-    
+    this.navbarHide = true;
   }
 
   onSubmit() {

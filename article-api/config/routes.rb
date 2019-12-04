@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   get '/articles', to: 'article#index'
   post '/articles', to: 'article#create'
-  get '/users/:id', to: 'article#show'
+  get '/articles/:id', to: 'article#show'
+  put '/articles/:id', to: 'article#update'
+  delete '/articles/:id', to: 'article#destroy'
 end

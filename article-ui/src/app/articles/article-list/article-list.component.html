@@ -1,7 +1,16 @@
-<div *ngIf=articles>
-    <div *ngFor="let article of articles | keyvalue">
-        {{ article.title }}
-    </div>
+<div class="row">
+	<h2>Articles</h2>
+</div>
+<div class="row">
+	<div *ngIf=articles>
+		<div *ngFor="let article of articles | keyvalue">
+			{{ article.title }}
+		</div>
+	</div>
+	<div ng-show="!articles.length">
+		<ngb-alert [dismissible]="false">
+			No articles yet. Click "Create" to make one.
+		</ngb-alert>
+	</div>
 </div>
 
-<div ng-show="!articles.length">No items</div>

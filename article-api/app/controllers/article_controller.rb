@@ -17,7 +17,8 @@ class ArticleController < ApplicationController
 
     # POST /articles
   	def create
-    	@article = Article.new(user_params)
+		@user = User.find(params[:user_id])
+    	@article = Article.new(:user => @user, :title => params[:title], :description => params[:description])
     	if @article.save
       		render json: @article, status: :created
     	else
@@ -28,28 +29,20 @@ class ArticleController < ApplicationController
 
     # PUT /articles/:id
     def update
-        unless @article.update(user_params)
+        unless @article.update(article_params)
         render json: { errors: @article.errors.full_messages },
         status: :unprocessable_entity
         end
     end
 
-    # DELETE /users/{id}
+    # DELETE /users/:id
     def destroy
         @article.destroy
     end
 
     private
 
-    def find_article_by_user_id
-        @article = article.find_by_user_id!(params[:user_id])
-        rescue ActiveRecord::RecordNotFound
-        render json: { errors: 'Article not found' }, status: :not_found
-    end
-
-    def user_params
-        params.permit(
-        :user_id, :title, :description
-        )
+    def article_params
+        params.permit(:title, :description)
     end
 end

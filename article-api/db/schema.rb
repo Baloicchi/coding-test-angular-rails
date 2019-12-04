@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_141817) do
+ActiveRecord::Schema.define(version: 2019_12_03_224627) do
 
   create_table "articles", force: :cascade do |t|
-    t.integer "user_id_id", null: false
+    t.integer "user_id", null: false
     t.string "title"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id_id"], name: "index_articles_on_user_id_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,5 +29,5 @@ ActiveRecord::Schema.define(version: 2019_12_03_141817) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "articles", "user_ids"
+  add_foreign_key "articles", "users"
 end

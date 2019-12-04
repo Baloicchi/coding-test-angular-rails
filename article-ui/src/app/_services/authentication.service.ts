@@ -25,6 +25,7 @@ export class AuthenticationService {
             localStorage.setItem('exp', this.data.exp);
             localStorage.setItem('id', this.data.id);
             localStorage.setItem('email', this.data.email);
+			localStorage.setItem('name', this.data.name);
             this.router.navigate(['']);
         });    
     }
