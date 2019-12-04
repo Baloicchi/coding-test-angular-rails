@@ -6,7 +6,6 @@ import { environment } from '@environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    data;
 
     constructor(private http: HttpClient, private router: Router) {
     }
@@ -14,20 +13,10 @@ export class AuthenticationService {
     public isLoggedIn() {
         return localStorage.getItem('currentUser') !== null;
     }
-
+1
     // login - store JWT in local storage
     login(email: string, password: string) {
-        this.http.post(`${environment.apiUrl}/auth/login`, { email, password })
-        .subscribe(response => { 
-            this.data = response; 
-            localStorage.setItem('currentUser', JSON.stringify(this.data));
-            localStorage.setItem('token', this.data.token);
-            localStorage.setItem('exp', this.data.exp);
-            localStorage.setItem('id', this.data.id);
-            localStorage.setItem('email', this.data.email);
-			localStorage.setItem('name', this.data.name);
-            this.router.navigate(['']);
-        });    
+        return this.http.post(`${environment.apiUrl}/auth/login`, { email, password });    
     }
 
     // logout

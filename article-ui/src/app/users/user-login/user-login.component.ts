@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '@app/_services/authentication.service';
+import { HeaderHideService } from '@app/_services/header-hide.service';
 
 @Component({
   selector: 'app-user-login',
@@ -11,10 +12,12 @@ import { AuthenticationService } from '@app/_services/authentication.service';
 })
 
 export class UserLoginComponent implements OnInit {
-
-  navbarHide: boolean;
 	
+data;
+error;
+
   constructor(
+    public headerHideService: HeaderHideService, 
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -26,11 +29,25 @@ export class UserLoginComponent implements OnInit {
   });
   
   ngOnInit() {
-    this.navbarHide = true;
+    this.headerHideService.hide();
   }
 
   onSubmit() {
-    this.authenticationService.login(this.userLoginForm.value.email, this.userLoginForm.value.password);
+    this.authenticationService.login(this.userLoginForm.value.email, this.userLoginForm.value.password)
+    .subscribe(response => { 
+      this.data = response; 
+      localStorage.setItem('currentUser', JSON.stringify(this.data));
+      localStorage.setItem('token', this.data.token);
+      localStorage.setItem('exp', this.data.exp);
+      localStorage.setItem('id', this.data.id);
+      localStorage.setItem('email', this.data.email);
+      localStorage.setItem('name', this.data.name);
+      this.router.navigate(['']);
+    }, err => {
+      this.error = err;
+      setTimeout(() => {
+        this.error = null;
+      }, 3000);
+    });
   }
-
 }

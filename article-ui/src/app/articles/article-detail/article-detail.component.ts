@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 import { ArticleService } from '@app/_services/article.service';
 
@@ -7,14 +9,21 @@ import { ArticleService } from '@app/_services/article.service';
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleDetailComponent implements OnInit {
 
   article;
 
-  constructor( private articleService: ArticleService) { }
+  constructor(
+  	private articleService: ArticleService, 
+  	private route: ActivatedRoute,
+  	private router: Router,
+  ) { }
 
   ngOnInit() {
-    this.article = this.articleService.getAllArticles();
+  	let id = this.route.snapshot.paramMap.get('id');
+	this.articleService.getArticle(id).subscribe(response => {
+		this.article = response;
+  	});
   }
 
 }

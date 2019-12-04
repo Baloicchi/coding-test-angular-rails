@@ -18,6 +18,10 @@ export class ArticleService {
     getAllArticles(){
         return this.http.get(`${environment.apiUrl}/articles`);
     }
+
+    getArticle(id: string){
+    	return this.http.get(`${environment.apiUrl}/articles/${id}`);
+    }
 	
 	createArticle(user_id: number, title: string, description: string){
 		this.http.post(`${environment.apiUrl}/articles`, {user_id, title, description}, httpOptions)
