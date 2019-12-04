@@ -9,13 +9,14 @@ import { ArticleService } from '@app/_services/article.service';
 })
 export class ArticleListComponent implements OnInit {
 
-  articles;
+  articles: any = [];
 
   constructor( private articleService: ArticleService) { }
 
   ngOnInit() {
-    this.articles = this.articleService.getAllArticles();
-	console.log(this.articles);
+	this.articleService.getAllArticles().subscribe(response => {
+		this.articles = response;
+	});
   }
 
 }

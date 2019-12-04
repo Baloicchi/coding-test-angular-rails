@@ -1,13 +1,27 @@
 <div class="row">
 	<h2>Articles</h2>
 </div>
+
 <div class="row">
 	<div *ngIf=articles>
-		<div *ngFor="let article of articles | keyvalue">
-			{{ article.title }}
+		<div *ngFor="let article of articles">
+			<div class="list-group">
+				<a [routerLink]="['/articles', article.id]" class="list-group-item list-group-item-action">
+					<div class="d-flex w-100 justify-content-between">
+						<h5 class="mb-1">{{ article.title }}</h5>
+						<small>{{ article.created_at | date: "shortDate" }}</small>
+					</div>
+					<p class="mb-1"> 
+						{{ (article.description.length > 150) ? (article.description | slice:0:150) + '...' : (article.description) }}
+					</p>
+					<small>BY: {{ article.user.name }}</small>
+				</a>
+			</div>
 		</div>
 	</div>
-	<div ng-show="!articles.length">
+
+	
+	<div *ngIf=!articles>
 		<ngb-alert [dismissible]="false">
 			No articles yet. Click "Create" to make one.
 		</ngb-alert>

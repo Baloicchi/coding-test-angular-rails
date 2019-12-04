@@ -9,6 +9,7 @@ import { AuthenticationService } from '@app/_services/authentication.service';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
+
 export class UserLoginComponent implements OnInit {
 
   navbarHide: boolean;

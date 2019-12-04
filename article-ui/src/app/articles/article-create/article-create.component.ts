@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { ArticleService } from '@app/_services/article.service';
 import { UserService } from '@app/_services/user.service';
@@ -11,15 +11,22 @@ import { UserService } from '@app/_services/user.service';
 export class ArticleCreateComponent implements OnInit {
 
   constructor( 
-  private articleService: ArticleService,
-  private userService: UserService,
-  private formBuilder: FormBuilder,
+    private articleService: ArticleService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
   ) { }
-  
+
+  // custom validator for whitespace
+  noWhiteSpace(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
+
   articleCreationForm = this.formBuilder.group({
-	user_id: [localStorage.getItem('id'), Validators.required],
-    title: ['', [Validators.required, Validators.maxLength(50)]],
-    description: ['', Validators.required],
+    user_id: [localStorage.getItem("id"), Validators.required],
+    title: ['', [Validators.required, Validators.maxLength(75), this.noWhiteSpace]],
+    description: ['', [Validators.required, this.noWhiteSpace]]
   });
 
   ngOnInit() {

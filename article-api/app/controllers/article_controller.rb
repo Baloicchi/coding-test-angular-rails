@@ -4,15 +4,15 @@ class ArticleController < ApplicationController
     # GET /articles
 	def index
 		@articles = Article.all
-		render json: @articles, status: :ok
+		render json: @articles, include: {user: {only: [:name]}}, status: :ok
 	end
 
 	# GET /articles/:id
 	def show
-    @article = Article.find(params[:id])
-    render json: @article, status: :ok
-    rescue ActiveRecord::RecordNotFound
-      render json: { errors: 'Article not found' }, status: :not_found
+		@article = Article.find(params[:id])
+		render json: @article, status: :ok
+		rescue ActiveRecord::RecordNotFound
+		  render json: { errors: 'Article not found' }, status: :not_found
 	end
 
     # POST /articles

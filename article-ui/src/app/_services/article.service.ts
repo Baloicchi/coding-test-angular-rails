@@ -16,10 +16,7 @@ export class ArticleService {
     constructor(private http: HttpClient) { }
     
     getAllArticles(){
-        this.http.get<any[]>(`${environment.apiUrl}/articles`).subscribe(response => {
-			console.log(response);
-			return response;
-		});
+        return this.http.get(`${environment.apiUrl}/articles`);
     }
 	
 	createArticle(user_id: number, title: string, description: string){
