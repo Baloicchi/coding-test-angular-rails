@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/users', to: 'user#index'
   post '/users', to: 'user#create'
   get '/users/:id', to: 'user#show'
+  post '/user_search', to: 'user#find_user_by_email'
 
   get '/articles', to: 'article#index'
   post '/articles', to: 'article#create'

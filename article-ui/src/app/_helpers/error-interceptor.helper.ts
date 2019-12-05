@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router} from '@angular/router';
 
+import { environment } from '@environments/environment.prod';
+
 import { AuthenticationService } from '@app/_services/authentication.service';
 
 @Injectable()
@@ -17,7 +19,7 @@ export class ErrorInterceptorHelper implements HttpInterceptor {
                 this.authenticationService.logout();
             } else if (err.status === 404) {
                 // page not found
-                this.router.navigate(['404']);
+                this.router.navigate(['404']); 
             }
 
             const error = err.error.message || err.statusText;

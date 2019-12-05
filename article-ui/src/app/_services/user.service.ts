@@ -28,4 +28,8 @@ export class UserService {
 	createUser(email: string, name: string, password: string, password_confirmation: string) {
 		return this.http.post(`${environment.apiUrl}/users`, {email, name, password, password_confirmation}, httpOptions);
 	}
+
+	checkEmail(email: string) {
+		return this.http.post(`${environment.apiUrl}/user_search`, {email});
+	}
 }

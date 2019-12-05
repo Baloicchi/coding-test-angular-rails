@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '@app/_services/authentication.service';
+import { AlertService } from '@app/_services/alert.service';
 
 @Component({
   selector: 'app-user-login',
@@ -19,6 +20,7 @@ error;
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private alertService: AlertService
   ) {}
 
   userLoginForm = this.formBuilder.group({
@@ -27,6 +29,17 @@ error;
   });
   
   ngOnInit() {
+    if (this.alertService.getSuccessMsg()) {
+      setTimeout(() => {
+        this.alertService.clearSuccessMsg();
+      }, 3000);
+    }
+
+    if (this.alertService.getErrorMsg()) {
+      setTimeout(() => {
+        this.alertService.clearErrorMsg();
+      }, 3000);
+    }
   }
 
   onSubmit() {
