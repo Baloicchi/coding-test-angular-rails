@@ -4,6 +4,12 @@
 	</div>
 </div>
 
+<div *ngIf="alertService.getErrorMsg()" class="row">
+	<div class="alert alert-danger">
+		{{ alertService.getErrorMsg() }}
+	</div>
+</div>
+
 <div class="row">
 	<h2>Articles</h2>
 </div>

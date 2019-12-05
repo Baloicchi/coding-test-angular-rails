@@ -31,11 +31,14 @@ class ArticleController < ApplicationController
 
     # PUT /articles/:id
     def update
+        @article = Article.find(params[:id])
         if @article.update(article_params)
-            render json: { errors: @article.errors.full_messages }, status: :unprocessable_entity
+            render json: { msg: "updated"}, status: :ok
         else
-            render json: { msg: "updated"}, status: :updated
+            render json: { errors: @article.errors.full_messages }, status: :unprocessable_entity
         end
+        rescue ActiveRecord::RecordNotFound
+          render json: { errors: 'User not found' }, status: :not_found
     end
 
     # DELETE /articles/:id

@@ -25,12 +25,11 @@ export class ArticleService {
     }
 	
 	createArticle(user_id: number, title: string, description: string){
-		this.http.post(`${environment.apiUrl}/articles`, {user_id, title, description}, httpOptions)
-		.subscribe();
+		return this.http.post(`${environment.apiUrl}/articles`, {user_id, title, description}, httpOptions);
 	}
 
 	updateArticle(id: number, title: string, description: string) {
-		this.http.put(`${environment.apiUrl}/articles/${id}`, {id, title, description});
+		return this.http.put(`${environment.apiUrl}/articles/${id}`, {id, title, description});
 	}
 
 	deleteArticle(id: number) {

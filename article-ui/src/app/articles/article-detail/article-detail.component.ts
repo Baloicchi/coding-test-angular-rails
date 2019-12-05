@@ -40,25 +40,41 @@ export class ArticleDetailComponent implements OnInit {
 		  this.article = response;
       this.isAuthor = user_id == this.article.user_id ? true : false;
       this.articleEditForm = this.formBuilder.group({
+        id: [id, Validators.required],
         title: [this.article.title, [Validators.required, Validators.maxLength(75), this.noWhiteSpace]],
-        description: [this.article.description, [Validators.required, this.noWhiteSpace]]
+        description: [this.article.description, [Validators.required, Validators.maxLength(5000), this.noWhiteSpace]]
       });
   	});
   }
 
   onSubmit() {
-
+    this.articleService.updateArticle(
+      this.articleEditForm.value.id,
+      this.articleEditForm.value.title,
+      this.articleEditForm.value.description)
+    .subscribe(
+      response => {
+        this.alertService.setSuccessMsg("Article succesfully updated!");
+        setTimeout(() => {
+        this.alertService.clearSuccessMsg();
+      }, 3000);
+      },
+      error => {
+        this.alertService.setErrorMsg("Article could not be updated. Please try again.");
+        setTimeout(() => {
+        this.alertService.clearErrorMsg();
+      }, 3000);
+      }
+      );
   }
 
   onDelete(id: number) {
     this.articleService.deleteArticle(id).subscribe(
       response => {
-        console.log("dleete");
         this.alertService.setSuccessMsg("Article succesfully deleted!");
-        console.log(this.alertService.getSuccessMsg());
       },
       error => {
-        
+        this.alertService.setErrorMsg("Article could not be deleted. Please try again.");
       },
       () => {
         this.router.navigate(['articles']);
