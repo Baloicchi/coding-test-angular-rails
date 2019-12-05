@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '@app/_services/authentication.service';
-import { HeaderHideService } from '@app/_services/header-hide.service';
 
 @Component({
   selector: 'app-user-login',
@@ -17,7 +16,6 @@ data;
 error;
 
   constructor(
-    public headerHideService: HeaderHideService, 
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -29,7 +27,6 @@ error;
   });
   
   ngOnInit() {
-    this.headerHideService.hide();
   }
 
   onSubmit() {

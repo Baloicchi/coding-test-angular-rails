@@ -21,9 +21,6 @@ import { HeaderComponent } from '@app/_shared/header/header.component';
 import { FooterComponent } from '@app/_shared/footer/footer.component';
 import { Error404Component } from '@app/_shared/error404/error404.component';
 
-import { HeaderHideService } from '@app/_services/header-hide.service';
-import { HeaderShowService } from '@app/_services/header-show.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,8 +45,6 @@ import { HeaderShowService } from '@app/_services/header-show.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorHelper, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorHelper, multi: true },
-    HeaderHideService,
-    HeaderShowService
   ],
   bootstrap: [AppComponent]
 })

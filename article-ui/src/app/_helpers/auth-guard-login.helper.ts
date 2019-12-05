@@ -21,7 +21,7 @@ export class AuthGuardLoginHelper implements CanActivate {
     }
 
     // redirect to home
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
     return false;
   }
 }

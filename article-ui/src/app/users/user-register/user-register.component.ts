@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HeaderHideService } from '@app/_services/header-hide.service';
-
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
@@ -9,10 +7,9 @@ import { HeaderHideService } from '@app/_services/header-hide.service';
 })
 export class UserRegisterComponent implements OnInit {
 
-  constructor(public headerHideService: HeaderHideService) { }
+  constructor() { }
 
   ngOnInit() {
-  	this.headerHideService.hide();
   }
 
 }

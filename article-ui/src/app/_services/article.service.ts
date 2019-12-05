@@ -15,6 +15,7 @@ export class ArticleService {
 	
     constructor(private http: HttpClient) { }
     
+
     getAllArticles(){
         return this.http.get(`${environment.apiUrl}/articles`);
     }
@@ -26,5 +27,13 @@ export class ArticleService {
 	createArticle(user_id: number, title: string, description: string){
 		this.http.post(`${environment.apiUrl}/articles`, {user_id, title, description}, httpOptions)
 		.subscribe();
+	}
+
+	updateArticle(id: number, title: string, description: string) {
+		this.http.put(`${environment.apiUrl}/articles/${id}`, {id, title, description});
+	}
+
+	deleteArticle(id: number) {
+		return this.http.delete(`${environment.apiUrl}/articles/${id}`);
 	}
 }

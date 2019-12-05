@@ -13,13 +13,11 @@ import { Error404Component } from '@app/_shared/error404/error404.component';
 import { AuthGuardHelper } from '@app/_helpers/auth-guard.helper';
 import { AuthGuardLoginHelper } from '@app/_helpers/auth-guard-login.helper';
 
-import { HeaderShowService } from '@app/_services/header-show.service';
-
 const routes: Routes = [
   { path: 'articles/:id', component: ArticleDetailComponent, canActivate: [AuthGuardHelper] },
-  { path: '', component: ArticlesComponent, canActivate: [AuthGuardHelper], pathMatch: 'full' },
-  { path: 'login', component: UserLoginComponent, canActivate: [AuthGuardLoginHelper], canDeactivate: [HeaderShowService] },
-  { path: 'register', component: UserRegisterComponent, canActivate: [AuthGuardLoginHelper] },
+  { path: '', component: ArticlesComponent, canActivate: [AuthGuardHelper] },
+  { path: 'login', component: UserLoginComponent, canActivate: [AuthGuardLoginHelper]},
+  { path: 'register', component: UserRegisterComponent, canActivate: [AuthGuardLoginHelper]},
   { path: 'articles', component: ArticleListComponent, canActivate: [AuthGuardHelper] },
   { path: 'create', component: ArticleCreateComponent, canActivate: [AuthGuardHelper] },
   { path: '404', component: Error404Component },

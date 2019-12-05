@@ -10,7 +10,7 @@ class ArticleController < ApplicationController
 	# GET /articles/:id
 	def show
 		@article = Article.find(params[:id])
-		render json: @article, status: :ok
+		render json: @article, include: {user: {only: [:name]}}, status: :ok
 		rescue ActiveRecord::RecordNotFound
 		  render json: { errors: 'Article not found' }, status: :not_found
 	end
@@ -25,19 +25,26 @@ class ArticleController < ApplicationController
       	render json: { errors: @article.errors.full_messages },
           	status: :unprocessable_entity
     	end
+        rescue ActiveRecord::RecordNotFound
+          render json: { errors: 'User not found' }, status: :not_found
  	end
 
     # PUT /articles/:id
     def update
-        unless @article.update(article_params)
-        render json: { errors: @article.errors.full_messages },
-        status: :unprocessable_entity
+        if @article.update(article_params)
+            render json: { errors: @article.errors.full_messages }, status: :unprocessable_entity
+        else
+            render json: { msg: "updated"}, status: :updated
         end
     end
 
-    # DELETE /users/:id
+    # DELETE /articles/:id
     def destroy
-        @article.destroy
+        if Article.destroy(params[:id])
+            render json: { msg: "deleted"}, status: :ok
+        else
+            render json: { errors: @article.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     private
