@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-	before_action :authorize_request, except: :create
+	before_action :authorize_request
 
  	# GET /users
 	def index

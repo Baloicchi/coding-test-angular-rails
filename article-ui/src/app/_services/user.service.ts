@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { environment } from '@environments/environment.prod';
+
+const httpOptions = {
+	headers: new HttpHeaders({
+		'Content-Type':  'application/json'
+	})
+};
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -15,5 +23,9 @@ export class UserService {
 	
 	getId() {
 		return localStorage.getItem('id');
+	}
+
+	createUser(email: string, name: string, password: string, password_confirmation: string) {
+		return this.http.post(`${environment.apiUrl}/users`, {email, name, password, password_confirmation}, httpOptions);
 	}
 }

@@ -77,7 +77,7 @@ export class ArticleDetailComponent implements OnInit {
         this.alertService.setErrorMsg("Article could not be deleted. Please try again.");
       },
       () => {
-        this.router.navigate(['articles']);
+        this.router.navigateByUrl('/articles');
       }
       );
   }

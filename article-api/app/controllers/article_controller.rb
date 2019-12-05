@@ -20,7 +20,7 @@ class ArticleController < ApplicationController
 		@user = User.find(params[:user_id])
     	@article = Article.new(:user => @user, :title => params[:title], :description => params[:description])
     	if @article.save
-      		render json: @article, status: :created
+      		render json: @article, status: :ok
     	else
       	render json: { errors: @article.errors.full_messages },
           	status: :unprocessable_entity

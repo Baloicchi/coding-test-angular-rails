@@ -50,7 +50,7 @@ export class ArticleCreateComponent implements OnInit {
         this.alertService.setErrorMsg("Unable to create article. Please try again.");
       },
       () => {
-        this.router.navigate['articles'];
+        this.router.navigateByUrl('/articles');
       }
     );
   }
